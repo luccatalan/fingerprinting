@@ -31,7 +31,7 @@
         var renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
 
 
-        $.post("http://127.0.0.1:8081/process", {   timezone: new Date().getTimezoneOffset(), 
+        $.post("https://se501-fingerprinting.herokuapp.com/process", {   timezone: new Date().getTimezoneOffset(), 
                                                     platform: window.navigator.platform,
                                                     cookieEnabled: window.navigator.cookieEnabled,
                                                     doNotTrack: window.navigator.doNotTrack,
