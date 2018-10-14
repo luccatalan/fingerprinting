@@ -15,7 +15,8 @@ var userInformationsSchema = new mongoose.Schema({
     cookieEnabled : String,
     doNotTrack : String,
     vendor : String,
-    renderer : String
+    renderer : String,
+    userAgent: String
 });
 var userInformationsModel = mongoose.model('UserInformations', userInformationsSchema);
 
@@ -25,6 +26,11 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                                     // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+
+app.get("/", function(req, res){
+    res.writeHead(301, { Location: '/fingerprint_client.html' });
+    res.end()
+});
 
 app.post('/process', function (req, res) {
     // Getting informations thanks to JS functions executed on client side
@@ -52,12 +58,12 @@ app.get('/getResults', function(req, res) {
                 if(!key.startsWith("_"))
                 {
                     userString = userString.concat(userInformations[key])
+                    console.log(userInformations[key])
                 }
             });
             hashList.push(md5(userString))
         });
-        console.log(hashList)
-        // Compute the number of identic fingerprint
+        // Compute the number of identic fingerprint with a so crappy method but I didn't have the time
 
         hashList.forEach(hash => {
             var found = 0;
@@ -71,11 +77,12 @@ app.get('/getResults', function(req, res) {
         });
         resData.nbCollisions = resData.nbCollisions;
         resData.nbDataUsed = hashList.length;
+        resData.allUserInformations = allUserInformations;
         res.json(resData);
     });
 })
 
-var server = app.listen(process.env.PORT, function () {
+var server = app.listen(8081, function () {
    var host = server.address().address
    var port = server.address().port
  

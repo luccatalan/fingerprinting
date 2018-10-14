@@ -13,9 +13,11 @@
     else
     {
         console.log("Not first visit")
-        // For debug purpose
-        sendInformationsToServer();
+        //Active only for debug purpose
+        //sendInformationsToServer();
     }
+
+    alert("Bienvenue sur mon site, je vais vous expliquer comment gagner 1m d'euros en quelques secondes ! Les gens de la bourse ont peur de moi !")
     
     
     
@@ -37,9 +39,13 @@
                                                     screenWidth: window.navigator.screenWidth,
                                                     screenColorDeepth: window.navigator.screenColorDeepth,
                                                     vendor: vendor,
-                                                    renderer: renderer
+                                                    renderer: renderer,
+                                                    userAgent: navigator.userAgent
                                                 });
     }
 
 </script>
+<body>
+    <img src="tracked.png" title="wowo you're so a hacker" alt="Big Brother" />
+</body>
 </html>
